@@ -1,13 +1,11 @@
 package com.amela.controller;
 
+import com.amela.exception.DuplicateLastNameException;
 import com.amela.model.Customer;
 import com.amela.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,12 +25,24 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public ModelAndView saveCustomer(@ModelAttribute("customer") Customer customer) {
+    public ModelAndView saveCustomer(@ModelAttribute("customer") Customer customer) throws DuplicateLastNameException{
+
+        /*try {
+            customerService.save(customer);
+            ModelAndView modelAndView = new ModelAndView("/customer/create");
+            modelAndView.addObject("customer", new Customer());
+            modelAndView.addObject("message", "New customer created successfully");
+            return modelAndView;
+        } catch (DuplicateLastNameException e) {
+            return new ModelAndView("/customer/inputs-not-acceptable");
+        }*/
+
         customerService.save(customer);
         ModelAndView modelAndView = new ModelAndView("/customer/create");
         modelAndView.addObject("customer", new Customer());
         modelAndView.addObject("message", "New customer created successfully");
         return modelAndView;
+
     }
 
     @GetMapping("")
@@ -41,5 +51,10 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("customers", customers);
         return modelAndView;
+    }
+
+    @ExceptionHandler(DuplicateLastNameException.class)
+    public ModelAndView showInputNotAcceptable() {
+        return new ModelAndView("/customer/inputs-not-acceptable");
     }
 }

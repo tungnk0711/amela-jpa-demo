@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -31,9 +32,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@EnableAspectJAutoProxy
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.amela.controller")
+@ComponentScan("com.amela")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -52,6 +54,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public ICustomerService customerService(){
         return new CustomerService();
     }
+
 
     //Cấu hình Thymleaf
     @Bean

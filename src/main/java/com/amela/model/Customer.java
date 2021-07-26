@@ -25,6 +25,8 @@ public class Customer {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String firstName;
+
+    @Column(unique = true)
     private String lastName;
 
     public Customer() {}
