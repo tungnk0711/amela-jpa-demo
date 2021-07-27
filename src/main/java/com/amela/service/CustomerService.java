@@ -25,7 +25,7 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void save(Customer customer) throws DuplicateLastNameException{
+    public void saveCustomer(Customer customer) throws DuplicateLastNameException{
 
         try {
             System.out.println("Method save() called");

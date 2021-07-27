@@ -2,12 +2,14 @@ package com.amela.controller;
 
 import com.amela.exception.DuplicateLastNameException;
 import com.amela.model.Customer;
+import com.amela.model.Items;
 import com.amela.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -37,7 +39,7 @@ public class CustomerController {
             return new ModelAndView("/customer/inputs-not-acceptable");
         }*/
 
-        customerService.save(customer);
+        customerService.saveCustomer(customer);
         ModelAndView modelAndView = new ModelAndView("/customer/create");
         modelAndView.addObject("customer", new Customer());
         modelAndView.addObject("message", "New customer created successfully");
@@ -46,7 +48,11 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public ModelAndView listCustomers() {
+    public ModelAndView listCustomers(HttpSession session) {
+
+        List<Items> cart = (List<Items>) session.getAttribute("cart");
+
+
         List<Customer> customers = customerService.findAll();
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("customers", customers);

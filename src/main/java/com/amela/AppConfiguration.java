@@ -2,8 +2,12 @@ package com.amela;
 
 import com.amela.repository.CustomerRepository;
 import com.amela.repository.ICustomerRepository;
+import com.amela.repository.IProductRepository;
+import com.amela.repository.ProductRepository;
 import com.amela.service.CustomerService;
 import com.amela.service.ICustomerService;
+import com.amela.service.IProductService;
+import com.amela.service.ProductService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -53,6 +57,16 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     @Bean
     public ICustomerService customerService(){
         return new CustomerService();
+    }
+
+    @Bean
+    public IProductRepository productRepository(){
+        return new ProductRepository();
+    }
+
+    @Bean
+    public IProductService productService(){
+        return new ProductService();
     }
 
 
