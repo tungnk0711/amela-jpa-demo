@@ -5,5 +5,7 @@ import com.amela.model.Customer;
 
 public interface ICustomerService extends IGeneralService<Customer> {
 
+    Customer findById(Long id);
+
     void saveCustomer(Customer customer) throws DuplicateLastNameException;
 }

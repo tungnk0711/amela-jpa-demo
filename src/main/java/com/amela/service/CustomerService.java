@@ -25,6 +25,11 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
+    public Customer findById(Long id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
     public void saveCustomer(Customer customer) throws DuplicateLastNameException{
 
         try {

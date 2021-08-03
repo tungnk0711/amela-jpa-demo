@@ -48,14 +48,20 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public ModelAndView listCustomers(HttpSession session) {
-
-        List<Items> cart = (List<Items>) session.getAttribute("cart");
-
+    public ModelAndView listCustomers() {
 
         List<Customer> customers = customerService.findAll();
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("customers", customers);
+        return modelAndView;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView findById(@PathVariable("id") Long id) {
+
+        Customer customer = customerService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("/customer/detail");
+        modelAndView.addObject("customer", customer);
         return modelAndView;
     }
 

@@ -1,6 +1,7 @@
 package com.amela.repository;
 
 import com.amela.model.Customer;
+import com.amela.model.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,4 +55,12 @@ public class CustomerRepository implements ICustomerRepository {
         return customers;
     }
 
+    @Override
+    public Customer findById(Long id) {
+        TypedQuery<Customer> query = em.createNamedQuery("findCustomerWithId", Customer.class);
+        query.setParameter("id", id);
+        Customer customer = query.getSingleResult();
+
+        return customer;
+    }
 }
